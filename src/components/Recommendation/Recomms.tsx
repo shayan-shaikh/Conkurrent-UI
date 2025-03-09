@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import axios from 'axios';
+import { apiUrl } from '../../constants/constants';
 
 // Type definitions
 interface Suggestion {
@@ -157,6 +159,20 @@ const TopicSuggestionSystem: React.FC = () => {
     setActiveStatusDropdown(activeStatusDropdown === id ? null : id);
   };
 
+  const handleSubmitTopic = async () => {
+    const payload = {
+      topic: formData.topic,
+      description: formData.description,
+      status: 'New'
+  }
+
+  const response = await axios.post(`${apiUrl}/api/suggestions`, payload);
+  if(response.status == 201) {
+    console.log('Submitted successfully')
+  }
+  console.log(response)
+  }
+
   // Status badge component with appropriate colors
   const StatusBadge: React.FC<{ status: Suggestion['status'] }> = ({ status }) => {
     const getStatusStyles = (): string => {
@@ -227,6 +243,7 @@ const TopicSuggestionSystem: React.FC = () => {
             <button
               type="submit"
               className="flex-1 py-3 bg-violet-600 hover:bg-violet-700 text-white rounded-xl font-medium transition-colors shadow-md"
+              onClick={handleSubmitTopic}
             >
               Submit Topic
             </button>
