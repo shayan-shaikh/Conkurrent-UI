@@ -19,9 +19,10 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
         <Link to="home" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">Home</Link>
-          <Link to="about" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">About</Link>
+          <Link to="about" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">About CK</Link>
           <Link to="episodes" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md  cursor-pointer">Episodes</Link>
           <Link to="recommendations" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">Topics</Link>
+          <Link to="aboutus" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">About Us</Link>
         </nav>
         
         {/* Mobile Menu Button */}
@@ -40,9 +41,10 @@ const Header = () => {
         <div className="md:hidden bg-gray-800 py-2">
         <nav className="flex flex-col text-center">
           <Link to="home" smooth={true} duration={500} className="py-2 hover:bg-gray-700 cursor-pointer">Home</Link>
-          <Link to="about" smooth={true} duration={500} className="py-2 hover:bg-gray-700 cursor-pointer">About</Link>
+          <Link to="about" smooth={true} duration={500} className="py-2 hover:bg-gray-700 cursor-pointer">About CK</Link>
           <Link to="episodes" smooth={true} duration={500} className="py-2 hover:bg-gray-700 cursor-pointer">Episodes</Link>
           <Link to="recommendations" smooth={true} duration={500} className="py-2 hover:bg-gray-700 cursor-pointer">Topics</Link>
+          <Link to="aboutus" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">About Us</Link>
         </nav>
       </div>
       )}
