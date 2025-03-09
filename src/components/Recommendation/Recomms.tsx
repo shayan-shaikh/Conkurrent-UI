@@ -1,65 +1,65 @@
 
-import { useState } from 'react';
-import RecommendationCard from './RecommCard';
+// import { useState } from 'react';
+// import RecommendationCard from './RecommCard';
 
 const RecommendationSection = () => {
   // Sample topic recommendations data
-  const topics = [
-    {
-      id: 1,
-      title: "Artificial Intelligence Ethics",
-      votes: 128,
-      category: "Technology",
-      description: "Exploring the ethical implications and guidelines for responsible AI development."
-    },
-    {
-      id: 2,
-      title: "Web3 and the Decentralized Internet",
-      votes: 96,
-      category: "Technology",
-      description: "How blockchain and decentralized technologies are reshaping the future of the web."
-    },
-    {
-      id: 3,
-      title: "Climate Tech Innovations",
-      votes: 84,
-      category: "Environment",
-      description: "Technological solutions addressing climate change and environmental challenges."
-    },
-    {
-      id: 4,
-      title: "Future of Work in the Digital Age",
-      votes: 72,
-      category: "Society",
-      description: "How remote work, automation, and new technologies are transforming the workplace."
-    },
-    {
-      id: 5,
-      title: "Digital Privacy in a Connected World",
-      votes: 65,
-      category: "Society",
-      description: "Navigating privacy concerns in an era of increasing digital surveillance and data collection."
-    },
-    {
-      id: 6,
-      title: "Biotechnology Breakthroughs",
-      votes: 59,
-      category: "Science",
-      description: "Exploring recent advances in biotech and their potential impact on medicine and society."
-    }
-  ];
+  // const topics = [
+  //   {
+  //     id: 1,
+  //     title: "Artificial Intelligence Ethics",
+  //     votes: 128,
+  //     category: "Technology",
+  //     description: "Exploring the ethical implications and guidelines for responsible AI development."
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Web3 and the Decentralized Internet",
+  //     votes: 96,
+  //     category: "Technology",
+  //     description: "How blockchain and decentralized technologies are reshaping the future of the web."
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Climate Tech Innovations",
+  //     votes: 84,
+  //     category: "Environment",
+  //     description: "Technological solutions addressing climate change and environmental challenges."
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Future of Work in the Digital Age",
+  //     votes: 72,
+  //     category: "Society",
+  //     description: "How remote work, automation, and new technologies are transforming the workplace."
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Digital Privacy in a Connected World",
+  //     votes: 65,
+  //     category: "Society",
+  //     description: "Navigating privacy concerns in an era of increasing digital surveillance and data collection."
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Biotechnology Breakthroughs",
+  //     votes: 59,
+  //     category: "Science",
+  //     description: "Exploring recent advances in biotech and their potential impact on medicine and society."
+  //   }
+  // ];
 
-  const [activeCategory, setActiveCategory] = useState('All');
-  const categories = ['All', 'Technology', 'Environment', 'Society', 'Science'];
+  // const [activeCategory, setActiveCategory] = useState('All');
+  // const categories = ['All', 'Technology', 'Environment', 'Society', 'Science'];
   
-  const filteredTopics = activeCategory === 'All' 
-    ? topics 
-    : topics.filter(topic => topic.category === activeCategory);
+  // const filteredTopics = activeCategory === 'All' 
+  //   ? topics 
+  //   : topics.filter(topic => topic.category === activeCategory);
 
   return (
     <section id="recommendations" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        {/* <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Topics for upcoming episodes</h2>
           <div className="w-20 h-1 bg-purple-600 mx-auto"></div>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -87,7 +87,7 @@ const RecommendationSection = () => {
           {filteredTopics.map(topic => (
             <RecommendationCard key={topic.id} topic={topic} />
           ))}
-        </div>
+        </div> */}
         
         <div className="mt-16 bg-white p-8 rounded-xl shadow-lg max-w-2xl mx-auto">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Suggest a Topic</h3>
