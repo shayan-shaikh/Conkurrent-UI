@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React, { useEffect, useState } from 'react';
+import { Dialog, DialogPanel, DialogTitle, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import { apiUrl } from '../../constants/constants';
 
 // Type definitions
@@ -39,32 +40,20 @@ const TopicSuggestionSystem: React.FC = () => {
   };
 
   // Mock data for previously submitted suggestions
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([
-    { 
-      id: 1, 
-      topic: "AI Ethics in Healthcare", 
-      description: "Exploring the ethical implications of AI in medical diagnoses and treatment plans.", 
-      status: "Done",
-      addedAt: "2025-03-01T10:30:00Z",
-      completedAt: "2025-03-08T14:45:00Z"
-    },
-    { 
-      id: 2, 
-      topic: "Sustainable Urban Planning", 
-      description: "How cities are redesigning infrastructure to combat climate change.", 
-      status: "ToDo",
-      addedAt: "2025-03-05T09:15:00Z",
-      completedAt: null
-    },
-    { 
-      id: 3, 
-      topic: "Digital Privacy in 2025", 
-      description: "Examining the current state of data protection laws and user privacy concerns.", 
-      status: "In Progress",
-      addedAt: "2025-03-07T16:20:00Z",
-      completedAt: null
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+
+  useEffect(() => {
+    const getExistingSuggestions = async () => {
+      const url = `${apiUrl}/api/suggestions`;
+      const response = await axios.get(url);
+      console.log(response.data);
+      if(typeof response.data === 'object'){
+        setSuggestions(response.data)
+      }
     }
-  ]);
+
+    getExistingSuggestions()
+  },[])
 
   // Form state for new submissions
   const [formData, setFormData] = useState<FormData>({
@@ -163,7 +152,8 @@ const TopicSuggestionSystem: React.FC = () => {
     const payload = {
       topic: formData.topic,
       description: formData.description,
-      status: 'New'
+      status: 'New',
+      id: uuidv4()
   }
 
   const response = await axios.post(`${apiUrl}/api/suggestions`, payload);
@@ -292,11 +282,11 @@ const TopicSuggestionSystem: React.FC = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[80vh] overflow-y-auto border border-gray-100 dark:border-gray-700">
+              <DialogPanel className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[80vh] overflow-y-auto border border-gray-100 dark:border-gray-700 z-30">
                 <div className="p-6">
-                  <Dialog.Title className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-white">
                     Topic Suggestions History
-                  </Dialog.Title>
+                    </DialogTitle>
                   
                   <div className="mt-6 space-y-4">
                     {suggestions.length === 0 ? (
@@ -447,7 +437,7 @@ const TopicSuggestionSystem: React.FC = () => {
                     </button>
                   </div>
                 </div>
-              </Dialog.Panel>
+              </DialogPanel>
             </Transition.Child>
           </div>
         </Dialog>

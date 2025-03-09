@@ -13,9 +13,10 @@ const CustomCursor = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 w-6 h-6 bg-blue-500 rounded-full shadow-lg pointer-events-none  mix-blend-difference z-50"
+      className="fixed top-0 left-0 w-6 h-6 bg-blue-500 rounded-full shadow-lg pointer-events-none  mix-blend-difference"
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
+        zIndex: 1000
       }}
     />
   );
