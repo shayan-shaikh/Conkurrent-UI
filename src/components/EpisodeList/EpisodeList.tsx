@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import EpisodeCard from './EpisodeCard';
 
 const EpisodeList = () => {
   
   const [filter, setFilter] = useState('all');
+  const driveId = import.meta.env.VITE_DRIVE_FOLDER_ID as string;
+  useEffect(() => {
+    console.log('driveId --> ', driveId)
+    console.log('env --> ', import.meta.env)
+  }, [driveId])
   
   // const filteredEpisodes = filter === 'featured' 
   //   ? allEpisodes.filter(episode => episode.featured) 
@@ -22,14 +27,16 @@ const EpisodeList = () => {
         
         <div className="flex justify-center mb-8">
           <div className="inline-flex bg-gray-800 rounded-full p-1">
-            <button 
-              onClick={() => setFilter('all')} 
+            <a 
+              onClick={() => setFilter('all')}
+              href={`https://drive.google.com/drive/folders/${driveId}`}
+              target='_blank'
               className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
                 filter === 'all' ? 'bg-purple-600 text-white' : 'text-gray-400 hover:text-white'
               }`}
             >
               Check out all Episodes
-            </button>
+            </a>
             {/* <button 
               onClick={() => setFilter('featured')} 
               className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
