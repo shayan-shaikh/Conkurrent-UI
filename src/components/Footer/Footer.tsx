@@ -1,5 +1,7 @@
 // src/components/Footer.jsx
 
+import { Link } from "react-scroll";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
@@ -44,15 +46,14 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="#home" className="text-gray-400 hover:text-white transition-colors">Home</a></li>
-              <li><a href="#about" className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#episodes" className="text-gray-400 hover:text-white transition-colors">Episodes</a></li>
-              <li><a href="#recommendations" className="text-gray-400 hover:text-white transition-colors">Topics</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+              <Link to="home" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">Home</Link>
+                        <Link to="about" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">About</Link>
+                        <Link to="episodes" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md  cursor-pointer">Episodes</Link>
+                        <Link to="recommendations" smooth={true} duration={500} className="py-2 px-2 hover:bg-red-300 rounded-md cursor-pointer">Topics</Link>
             </ul>
           </div>
           
-          <div>
+          {/* <div>
             <h3 className="text-lg font-semibold mb-4">Subscribe</h3>
             <p className="text-gray-400 mb-4">Get the latest episodes and updates directly to your inbox.</p>
             <form className="space-y-2">
@@ -76,7 +77,7 @@ const Footer = () => {
                 </button>
               </div>
             </form>
-          </div>
+          </div> */}
         </div>
         
         <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">

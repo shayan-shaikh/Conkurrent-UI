@@ -1,5 +1,4 @@
 // src/components/Mission.jsx
-import React from 'react';
 import { mission1, mission2, vision1, vision2 } from '../../constants/constants';
 
 const Mission = () => {
