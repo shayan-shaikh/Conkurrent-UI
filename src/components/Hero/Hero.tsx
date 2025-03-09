@@ -1,4 +1,5 @@
 
+import { Link } from 'react-scroll';
 import logo from '../../assets/logo.png'
 
 const Hero = () => {
@@ -13,12 +14,7 @@ const Hero = () => {
             Meeting at the common grounds of technology, culture, and everything else!
           </p>
           <div className="flex flex-wrap gap-4">
-            <a 
-              href="#episodes" 
-              className="px-6 py-3 bg-purple-600 text-white rounded-full font-medium hover:bg-purple-700 transition-colors shadow-lg"
-            >
-              Latest Episodes
-            </a>
+            <Link to="episodes" smooth={true} duration={500} className="px-6 py-3 bg-purple-600 text-white rounded-full font-medium hover:bg-purple-700 transition-colors shadow-lg">Latest Episodes</Link>
             <a 
               href="#" 
               className="px-6 py-3 bg-gray-800 text-white rounded-full font-medium hover:bg-gray-700 transition-colors shadow-lg flex items-center"
