@@ -79,6 +79,15 @@ const TopicSuggestionSystem: React.FC = () => {
     });
   };
 
+  const getExistingSuggestions = async () => {
+    const url = `${apiUrl}/api/suggestions`;
+    const response = await axios.get(url);
+    console.log(response.data);
+    if(typeof response.data === 'object'){
+      setSuggestions(response.data)
+    }
+  }
+
   // Handle input changes when editing a suggestion
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
     if (!editingSuggestion) return;
@@ -138,9 +147,23 @@ const TopicSuggestionSystem: React.FC = () => {
   };
 
   // Delete a suggestion
-  const deleteSuggestion = (id: number): void => {
-    const updatedSuggestions = suggestions.filter(suggestion => suggestion.id !== id);
-    setSuggestions(updatedSuggestions);
+  const deleteSuggestion = async (id: number): Promise<void> => {
+    // const updatedSuggestions = suggestions.filter(suggestion => suggestion.id !== id);
+
+    // setSuggestions(updatedSuggestions);
+    try {
+      const deletionResponse = await axios.delete(`${apiUrl}/api/suggestions/${id}`);
+    if(deletionResponse.status == 200){
+      console.log(deletionResponse.data.message);
+      await getExistingSuggestions();
+    }else{
+      console.log('deletion failed')
+    }
+    } catch (err) {
+      console.log('deletion failed --> ', err)
+    }
+    
+
   };
 
   // Toggle status dropdown
@@ -190,7 +213,8 @@ const TopicSuggestionSystem: React.FC = () => {
   const statusOptions: Suggestion['status'][] = ["New", "ToDo", "In Progress", "Done"];
 
   return (
-    <div className="font-sans antialiased">
+    <section id='recommendations'>
+    <div className="font-sans antialiased" >
       {/* Topic Suggestion Form */}
       <div className="mt-16 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl max-w-2xl mx-auto border border-gray-100 dark:border-gray-700">
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Suggest a Topic</h3>
@@ -443,6 +467,7 @@ const TopicSuggestionSystem: React.FC = () => {
         </Dialog>
       </Transition>
     </div>
+    </section>
   );
 };
 
