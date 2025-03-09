@@ -1,3 +1,7 @@
+import shayanImg from '../assets/shayan.jpg';
+import faizalImg from '../assets/faizal.jpg';
+import aribImg from '../assets/arib.jpg';
+
 export const headerOptions = {
     'Mission' : '',
     'Vision' : '',
@@ -75,3 +79,9 @@ export const allEpisodes = [
       featured: false
     }
   ];
+
+export const teamMembers = [
+  { name: "Faizal Shaikh", role: "Generational Enthusiast😎", image: faizalImg },
+  { name: "Shayan Shaikh", role: "Professional Yapper🗣️", image: shayanImg },
+  { name: "Arib Raje", role: "The Silent Patient🤫", image: aribImg }
+];

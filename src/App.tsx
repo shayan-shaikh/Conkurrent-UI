@@ -1,4 +1,5 @@
 import './App.css'
+import AboutUs from './components/AboutUs/AboutUs';
 import CustomCursor from './components/CustomCursor/CustomCursor';
 import EpisodeList from './components/EpisodeList/EpisodeList';
 import Footer from './components/Footer/Footer';
@@ -18,6 +19,7 @@ function App() {
         <Mission />
         <EpisodeList />
         <RecommendationSection />
+        <AboutUs />
       </main>
       <Footer />
     </div>
