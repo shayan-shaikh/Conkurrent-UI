@@ -60,7 +60,7 @@ const RecommendationSection = () => {
     <section id="recommendations" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Recommended Topics</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Topics for upcoming episodes</h2>
           <div className="w-20 h-1 bg-purple-600 mx-auto"></div>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             Vote on topics you'd like us to cover in future episodes or suggest your own ideas.

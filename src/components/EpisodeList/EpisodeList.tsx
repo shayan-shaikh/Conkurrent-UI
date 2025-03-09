@@ -1,77 +1,13 @@
 import { useState } from 'react';
-import EpisodeCard from './EpisodeCard';
+// import EpisodeCard from './EpisodeCard';
 
 const EpisodeList = () => {
-  // Sample episode data - this would typically come from an API
-  const allEpisodes = [
-    {
-      id: 1,
-      title: "The Future of Artificial Intelligence",
-      number: "EP 01",
-      date: "March 5, 2025",
-      duration: "48 min",
-      description: "We explore the cutting-edge developments in AI and what they mean for society, work, and human creativity.",
-      image: "/api/placeholder/500/500",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "Blockchain Beyond Cryptocurrency",
-      number: "EP 02",
-      date: "March 12, 2025",
-      duration: "52 min",
-      description: "Diving into the transformative potential of blockchain technology across various industries and use cases.",
-      image: "/api/placeholder/500/500",
-      featured: false
-    },
-    {
-      id: 3,
-      title: "The Metaverse Revolution",
-      number: "EP 03",
-      date: "March 19, 2025",
-      duration: "45 min",
-      description: "Exploring how virtual worlds are reshaping entertainment, work, and social connections.",
-      image: "/api/placeholder/500/500",
-      featured: false
-    },
-    {
-      id: 4,
-      title: "Sustainable Tech: Innovation for Planet Earth",
-      number: "EP 04",
-      date: "March 26, 2025",
-      duration: "56 min",
-      description: "Discussing technologies that are helping combat climate change and create a more sustainable future.",
-      image: "/api/placeholder/500/500",
-      featured: true
-    },
-    {
-      id: 5,
-      title: "The Psychology of Digital Minimalism",
-      number: "EP 05",
-      date: "April 2, 2025",
-      duration: "50 min",
-      description: "How to maintain mental health and focus in an age of constant digital distraction.",
-      image: "/api/placeholder/500/500",
-      featured: false
-    },
-    {
-      id: 6,
-      title: "Quantum Computing Explained",
-      number: "EP 06",
-      date: "April 9, 2025",
-      duration: "61 min",
-      description: "Breaking down the complex world of quantum computing and its revolutionary potential.",
-      image: "/api/placeholder/500/500",
-      featured: false
-    }
-  ];
   
   const [filter, setFilter] = useState('all');
   
-  // Filter episodes based on current filter state
-  const filteredEpisodes = filter === 'featured' 
-    ? allEpisodes.filter(episode => episode.featured) 
-    : allEpisodes;
+  // const filteredEpisodes = filter === 'featured' 
+  //   ? allEpisodes.filter(episode => episode.featured) 
+  //   : allEpisodes;
   
   return (
     <section id="episodes" className="py-20 bg-gray-900 text-white">
@@ -92,24 +28,24 @@ const EpisodeList = () => {
                 filter === 'all' ? 'bg-purple-600 text-white' : 'text-gray-400 hover:text-white'
               }`}
             >
-              All Episodes
+              Check out all Episodes
             </button>
-            <button 
+            {/* <button 
               onClick={() => setFilter('featured')} 
               className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
                 filter === 'featured' ? 'bg-purple-600 text-white' : 'text-gray-400 hover:text-white'
               }`}
             >
               Featured
-            </button>
+            </button> */}
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredEpisodes.map(episode => (
             <EpisodeCard key={episode.id} episode={episode} />
           ))}
-        </div>
+        </div> */}
         
       </div>
     </section>
