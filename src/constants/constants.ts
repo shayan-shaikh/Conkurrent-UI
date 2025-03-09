@@ -85,3 +85,5 @@ export const teamMembers = [
   { name: "Shayan Shaikh", role: "Professional Yapper🗣️", image: shayanImg },
   { name: "Arib Raje", role: "The Silent Patient🤫", image: aribImg }
 ];
+
+export const apiUrl = import.meta.env.VITE_API_URL as string;
