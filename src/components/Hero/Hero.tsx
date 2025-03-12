@@ -2,7 +2,7 @@
 import { Link } from 'react-scroll';
 import logo from '../../assets/logo.png'
 
-const Hero = ( setIsAuth : {setIsAuth: any}) => {
+const Hero = () => {
   return (
     <section id="home" className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
       <div className="container mx-auto px-4 w-full flex flex-col md:flex-row items-center">
