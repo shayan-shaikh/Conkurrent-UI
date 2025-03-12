@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { auth, signInWithGoogle } from "./utils/firebaseConfig";
+import { auth } from "./utils/firebaseConfig";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import AuthPage from "./pages/AuthPage";
 import "./App.css";
@@ -14,7 +14,6 @@ import TopicSuggestionsComponent from "./components/Recommendation/TopicSuggesti
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
-  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -32,7 +31,7 @@ function App() {
         <>
           <Header />
           <main>
-            <Hero setIsAuth={setIsAuth} />
+            <Hero />
             <Mission />
             <EpisodeList />
             <TopicSuggestionsComponent />
