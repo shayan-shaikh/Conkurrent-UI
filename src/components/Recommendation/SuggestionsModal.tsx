@@ -6,6 +6,7 @@ import { Suggestion } from '../../types/types';
 import StatusBadge from './StatusBadge';
 import { apiUrl } from '../../constants/constants';
 import { toast } from 'react-toastify';
+import FeatureMeBadge from './FeatureMe';
 
 interface SuggestionsModalProps {
   isOpen: boolean;
@@ -14,29 +15,29 @@ interface SuggestionsModalProps {
   refreshSuggestions: () => void;
 }
 
-const SuggestionsModal: React.FC<SuggestionsModalProps> = ({ 
-  isOpen, 
-  onClose, 
-  suggestions, 
-  refreshSuggestions 
+const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
+  isOpen,
+  onClose,
+  suggestions,
+  refreshSuggestions
 }) => {
   const [editingSuggestion, setEditingSuggestion] = useState<Suggestion | null>(null);
   const [activeStatusDropdown, setActiveStatusDropdown] = useState<number | null>(null);
-  
+
   const statusOptions: Suggestion['status'][] = ["New", "ToDo", "In Progress", "Done"];
-  
+
   const formatDate = (dateString: string | null): string => {
     if (!dateString) return "Not completed";
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short', 
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
     });
   };
-  
+
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
     if (!editingSuggestion) return;
 
@@ -46,17 +47,17 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
       [name]: value
     });
   };
-  
+
   const saveEdit = async (): Promise<void> => {
     if (!editingSuggestion) return;
 
     try {
       const updateResp = await axios.put(`${apiUrl}/api/suggestion/suggestions/${editingSuggestion.id}`, editingSuggestion);
       console.log(updateResp)
-      if(updateResp.status == 200){
+      if (updateResp.status == 200) {
         toast.success('Suggestion updated successfully 😎')
       }
-      else{
+      else {
         toast.error(updateResp.data.message ?? "Error updating suggestion ☹️")
       }
       refreshSuggestions();
@@ -66,19 +67,19 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
       toast.error('Failed to update suggestion. Please try again.🚨');
     }
   };
-  
+
   const updateStatus = async (id: number | string, newStatus: Suggestion['status']): Promise<void> => {
     try {
       const completedAt = newStatus === "Done" ? new Date().toISOString() : null;
-      
-      const statusUpdateResp = await axios.patch(`${apiUrl}/api/suggestion/suggestions/${id}/status`, { 
-        status: newStatus, 
-        completedAt 
+
+      const statusUpdateResp = await axios.patch(`${apiUrl}/api/suggestion/suggestions/${id}/status`, {
+        status: newStatus,
+        completedAt
       });
-      if(statusUpdateResp.status == 200) {
+      if (statusUpdateResp.status == 200) {
         toast.success("Status updated successfully 😎")
       }
-      else{
+      else {
         toast.error(statusUpdateResp.data.message ?? "Error updating status ☹️")
       }
       refreshSuggestions();
@@ -88,13 +89,13 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
       toast.error('Failed to update status. Please try again.🚨');
     }
   };
-  
+
   const deleteSuggestion = async (id: number | string): Promise<void> => {
     try {
       const deleteResp = await axios.delete(`${apiUrl}/api/suggestion/suggestions/${id}`);
-      if(deleteResp.status == 200){
+      if (deleteResp.status == 200) {
         toast.success("Suggestion deleted successfully🫡;")
-      }else{
+      } else {
         toast.error(deleteResp.data.message ?? "Error deleting status 💔")
       }
       refreshSuggestions();
@@ -103,16 +104,16 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
       toast.error('Failed to delete suggestion. Please try again.');
     }
   };
-  
+
   const toggleStatusDropdown = (id: number): void => {
     setActiveStatusDropdown(activeStatusDropdown === id ? null : id);
   };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog 
+      <Dialog
         as="div"
-        className="relative z-50" 
+        className="relative z-50"
         onClose={() => {
           onClose();
           setEditingSuggestion(null);
@@ -152,8 +153,8 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
                     <p className="text-gray-500 dark:text-gray-400 text-center py-8">No suggestions yet. Be the first to submit a topic!</p>
                   ) : (
                     suggestions.map((suggestion) => (
-                      <div 
-                        key={suggestion.id} 
+                      <div
+                        key={suggestion.id}
                         className="border border-gray-200 dark:border-gray-700 rounded-xl p-5 hover:shadow-md transition-shadow bg-white dark:bg-gray-800"
                       >
                         {editingSuggestion && editingSuggestion.id === suggestion.id ? (
@@ -217,10 +218,25 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
                           </div>
                         ) : (
                           <div>
-                            <div className="flex justify-between items-start mb-3">
-                              <h4 className="text-lg font-medium text-gray-900 dark:text-white">{suggestion.topic}</h4>
-                              <StatusBadge status={suggestion.status} />
-                            </div>
+                            <div className="flex items-start justify-between gap-2 mb-3 w-full min-w-0">
+  {/* Truncated Title */}
+  <h4 
+    className="text-lg font-medium text-gray-900 dark:text-white truncate min-w-0 max-w-full overflow-hidden whitespace-nowrap relative group"
+  >
+    {suggestion.topic}
+    <span className="absolute left-0 top-6 hidden w-max max-w-xs bg-gray-900 text-white text-xs rounded-md px-2 py-1 group-hover:block">
+      {suggestion.topic}
+    </span>
+  </h4>
+
+  {/* Badges (Always Aligned Right) */}
+  <div className="flex gap-2 flex-shrink-0">
+    <StatusBadge status={suggestion.status} />
+    <FeatureMeBadge featureMe={suggestion.featureMe} />
+  </div>
+</div>
+
+
 
                             <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">{suggestion.description}</p>
 

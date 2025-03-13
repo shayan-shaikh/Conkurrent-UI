@@ -5,7 +5,8 @@ export interface Suggestion {
     status: 'New' | 'ToDo' | 'In Progress' | 'Done';
     addedAt: string;
     completedAt: string | null;
-    submittedBy: string
+    submittedBy: string;
+    featureMe:boolean;
   }
   
   export interface FormData {
