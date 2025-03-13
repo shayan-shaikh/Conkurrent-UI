@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Suggestion } from '../../types/types';
 import StatusBadge from './StatusBadge';
 import { apiUrl } from '../../constants/constants';
+import { toast } from 'react-toastify';
 
 interface SuggestionsModalProps {
   isOpen: boolean;
@@ -50,12 +51,19 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
     if (!editingSuggestion) return;
 
     try {
-      await axios.put(`${apiUrl}/api/suggestions/${editingSuggestion.id}`, editingSuggestion);
+      const updateResp = await axios.put(`${apiUrl}/api/suggestion/suggestions/${editingSuggestion.id}`, editingSuggestion);
+      console.log(updateResp)
+      if(updateResp.status == 200){
+        toast.success('Suggestion updated successfully 😎')
+      }
+      else{
+        toast.error(updateResp.data.message ?? "Error updating suggestion ☹️")
+      }
       refreshSuggestions();
       setEditingSuggestion(null);
     } catch (error) {
       console.error('Failed to update suggestion:', error);
-      alert('Failed to update suggestion. Please try again.');
+      toast.error('Failed to update suggestion. Please try again.🚨');
     }
   };
   
@@ -63,26 +71,36 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
     try {
       const completedAt = newStatus === "Done" ? new Date().toISOString() : null;
       
-      await axios.patch(`${apiUrl}/api/suggestions/${id}`, { 
+      const statusUpdateResp = await axios.patch(`${apiUrl}/api/suggestion/suggestions/${id}/status`, { 
         status: newStatus, 
         completedAt 
       });
-      
+      if(statusUpdateResp.status == 200) {
+        toast.success("Status updated successfully 😎")
+      }
+      else{
+        toast.error(statusUpdateResp.data.message ?? "Error updating status ☹️")
+      }
       refreshSuggestions();
       setActiveStatusDropdown(null);
     } catch (error) {
       console.error('Failed to update status:', error);
-      alert('Failed to update status. Please try again.');
+      toast.error('Failed to update status. Please try again.🚨');
     }
   };
   
   const deleteSuggestion = async (id: number | string): Promise<void> => {
     try {
-      await axios.delete(`${apiUrl}/api/suggestions/${id}`);
+      const deleteResp = await axios.delete(`${apiUrl}/api/suggestion/suggestions/${id}`);
+      if(deleteResp.status == 200){
+        toast.success("Suggestion deleted successfully🫡;")
+      }else{
+        toast.error(deleteResp.data.message ?? "Error deleting status 💔")
+      }
       refreshSuggestions();
     } catch (error) {
       console.error('Failed to delete suggestion:', error);
-      alert('Failed to delete suggestion. Please try again.');
+      toast.error('Failed to delete suggestion. Please try again.');
     }
   };
   
@@ -206,12 +224,15 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
 
                             <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">{suggestion.description}</p>
 
-                            <div className="grid grid-cols-2 gap-2 mb-4 text-xs text-gray-600 dark:text-gray-400">
+                            <div className="grid grid-cols-1 gap-2 mb-4 text-xs text-gray-600 dark:text-gray-400">
                               <div>
                                 <span className="font-medium">Added:</span> {formatDate(suggestion.addedAt)}
                               </div>
                               <div>
                                 <span className="font-medium">Completed:</span> {formatDate(suggestion.completedAt)}
+                              </div>
+                              <div>
+                                <span className="font-medium">Submitted By:</span> {(suggestion.submittedBy)}
                               </div>
                             </div>
 

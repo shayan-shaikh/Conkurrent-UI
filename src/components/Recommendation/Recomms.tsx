@@ -4,6 +4,8 @@ import { Fragment } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { apiUrl } from '../../constants/constants';
+import { useAuth } from '../../hooks/AuthContext';
+import { toast } from 'react-toastify';
 
 // Type definitions
 interface Suggestion {
@@ -41,10 +43,11 @@ const TopicSuggestionSystem: React.FC = () => {
 
   // Mock data for previously submitted suggestions
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const getExistingSuggestions = async () => {
-      const url = `${apiUrl}/api/suggestions`;
+      const url = `${apiUrl}/api/suggestion/suggestions`;
       const response = await axios.get(url);
       console.log(response.data);
       if(typeof response.data === 'object'){
@@ -80,7 +83,7 @@ const TopicSuggestionSystem: React.FC = () => {
   };
 
   const getExistingSuggestions = async () => {
-    const url = `${apiUrl}/api/suggestions`;
+    const url = `${apiUrl}/api/suggestion/suggestions`;
     const response = await axios.get(url);
     console.log(response.data);
     if(typeof response.data === 'object'){
@@ -111,7 +114,6 @@ const TopicSuggestionSystem: React.FC = () => {
     };
     setSuggestions([...suggestions, newSuggestion]);
     setFormData({ topic: "", description: "" });
-    alert("Your topic has been submitted!");
   };
 
   // Start editing a suggestion
@@ -152,7 +154,7 @@ const TopicSuggestionSystem: React.FC = () => {
 
     // setSuggestions(updatedSuggestions);
     try {
-      const deletionResponse = await axios.delete(`${apiUrl}/api/suggestions/${id}`);
+      const deletionResponse = await axios.delete(`${apiUrl}/api/suggestion/suggestions/${id}`);
     if(deletionResponse.status == 200){
       console.log(deletionResponse.data.message);
       await getExistingSuggestions();
@@ -171,6 +173,21 @@ const TopicSuggestionSystem: React.FC = () => {
     setActiveStatusDropdown(activeStatusDropdown === id ? null : id);
   };
 
+  const sendFeedbackMail = async () => {
+    const payload = {
+      email: user?.email,
+      name: user?.displayName,
+  }
+
+  const emailResponse = await axios.post(`${apiUrl}/api/email/sendFeedback`, payload);
+  if(emailResponse.status == 200) {
+    toast.success('Feedback received successfully!')
+  }
+  else{
+    toast.error("Welp, Something went wrong, please try again!")
+  }
+  }
+
   const handleSubmitTopic = async () => {
     const payload = {
       topic: formData.topic,
@@ -179,11 +196,12 @@ const TopicSuggestionSystem: React.FC = () => {
       id: uuidv4()
   }
 
-  const response = await axios.post(`${apiUrl}/api/suggestions`, payload);
+  const response = await axios.post(`${apiUrl}/api/suggestion/suggestions`, payload);
   if(response.status == 201) {
     console.log('Submitted successfully')
+    console.log('----sending a mail-----');
+    await sendFeedbackMail()
   }
-  console.log(response)
   }
 
   // Status badge component with appropriate colors

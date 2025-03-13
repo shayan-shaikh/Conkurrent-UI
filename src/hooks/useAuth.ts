@@ -11,11 +11,6 @@ const useAuth = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser);
-      console.log(usersLowerCase)
-      console.log(currentUser?.email)
-      console.log(currentUser?.email?.toLowerCase())
-      console.log('condition for auth --> ', currentUser && usersLowerCase.includes(currentUser.email?.toLowerCase()))
       setIsAuthorized(currentUser && usersLowerCase.includes(currentUser.email?.toLowerCase()));
     });
 

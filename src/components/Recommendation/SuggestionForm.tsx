@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { FormData } from '../../types/types';
 import { apiUrl } from '../../constants/constants';
 import useAuth from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 interface SuggestionFormProps {
   openModal: () => void;
@@ -16,7 +17,7 @@ const SuggestionForm: React.FC<SuggestionFormProps> = ({ openModal, refreshSugge
     description: ""
   });
 
-  const {isAuthorized} = useAuth();
+  const {isAuthorized, user} = useAuth();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { id, value } = e.target;
@@ -25,6 +26,22 @@ const SuggestionForm: React.FC<SuggestionFormProps> = ({ openModal, refreshSugge
       [id]: value
     });
   };
+
+  const sendFeedbackMail = async () => {
+    const payload = {
+      email: user?.email,
+      name: user?.displayName,
+  }
+
+  const emailResponse = await axios.post(`${apiUrl}/api/email/sendFeedback`, payload);
+  if(emailResponse.status == 200) {
+    toast.success('Feedback received successfully!')
+  }
+  else{
+    toast.error("Welp, Something went wrong, please try again!")
+  }
+  }
+
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -35,19 +52,19 @@ const SuggestionForm: React.FC<SuggestionFormProps> = ({ openModal, refreshSugge
       status: 'New',
       id: uuidv4(),
       addedAt: new Date().toISOString(),
-      completedAt: null
+      completedAt: null,
+      submittedBy: user?.email
     };
 
     try {
-      const response = await axios.post(`${apiUrl}/api/suggestions`, payload);
+      const response = await axios.post(`${apiUrl}/api/suggestion/suggestions`, payload);
       if (response.status === 201) {
         setFormData({ topic: "", description: "" });
-        alert("Your topic has been submitted!");
+        await sendFeedbackMail()
         refreshSuggestions();
       }
     } catch (error) {
       console.error('Failed to submit topic:', error);
-      alert("Failed to submit your topic. Please try again later.");
     }
   };
 
