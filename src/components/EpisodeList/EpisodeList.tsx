@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // import EpisodeCard from './EpisodeCard';
 
 const EpisodeList = () => {
   
   const [filter, setFilter] = useState('all');
   const driveId = import.meta.env.VITE_DRIVE_FOLDER_ID as string;
-  useEffect(() => {
-    console.log('driveId --> ', driveId)
-    console.log('env --> ', import.meta.env)
-  }, [driveId])
   
   // const filteredEpisodes = filter === 'featured' 
   //   ? allEpisodes.filter(episode => episode.featured) 

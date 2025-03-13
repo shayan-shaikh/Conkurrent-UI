@@ -12,7 +12,7 @@ const TopicSuggestionsComponent: React.FC = () => {
 
   const fetchSuggestions = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/suggestions`);
+      const response = await axios.get(`${apiUrl}/api/suggestion/suggestions`);
       if (Array.isArray(response.data)) {
         setSuggestions(response.data);
       }
