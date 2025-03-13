@@ -219,22 +219,22 @@ const SuggestionsModal: React.FC<SuggestionsModalProps> = ({
                         ) : (
                           <div>
                             <div className="flex items-start justify-between gap-2 mb-3 w-full min-w-0">
-  {/* Truncated Title */}
-  <h4 
-    className="text-lg font-medium text-gray-900 dark:text-white truncate min-w-0 max-w-full overflow-hidden whitespace-nowrap relative group"
-  >
-    {suggestion.topic}
-    <span className="absolute left-0 top-6 hidden w-max max-w-xs bg-gray-900 text-white text-xs rounded-md px-2 py-1 group-hover:block">
-      {suggestion.topic}
-    </span>
-  </h4>
+                              {/* Truncated Title */}
+                              <h4
+                                className="text-lg font-medium text-gray-900 dark:text-white truncate min-w-0 max-w-full overflow-hidden whitespace-nowrap relative group"
+                              >
+                                {suggestion.topic}
+                                <span className="absolute left-0 top-6 hidden w-max max-w-xs bg-gray-900 text-white text-xs rounded-md px-2 py-1 group-hover:block">
+                                  {suggestion.topic}
+                                </span>
+                              </h4>
 
-  {/* Badges (Always Aligned Right) */}
-  <div className="flex gap-2 flex-shrink-0">
-    <StatusBadge status={suggestion.status} />
-    <FeatureMeBadge featureMe={suggestion.featureMe} />
-  </div>
-</div>
+                              {/* Badges (Always Aligned Right) */}
+                              <div className="flex gap-2 flex-shrink-0">
+                                <StatusBadge status={suggestion.status} />
+                                <FeatureMeBadge featureMe={suggestion.featureMe} />
+                              </div>
+                            </div>
 
 
 
